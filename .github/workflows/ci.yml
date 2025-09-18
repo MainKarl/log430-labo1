@@ -35,7 +35,6 @@ jobs:
 
       - name: Creer fichier .env
         run: |
-          WORKDIR log430/log430-labo1/
           echo "MYSQL_HOST=mysql" >> .env
           echo "MYSQL_DB_NAME=mydb" >> .env
           MYSQL_DATABASE=mydb
@@ -49,6 +48,6 @@ jobs:
           echo "MONGODB_URL=mongodb://user:pass@mongodb:27017/mydbmongo" >> .env
           echo "DB_USERNAME=user" >> .env
           echo "DB_PASSWORD=pass" >> .env
-      
+
       - name: Tester le python
         run: pytest
