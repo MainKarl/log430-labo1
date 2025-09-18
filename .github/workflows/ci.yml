@@ -6,29 +6,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    env:
-      MYSQL_HOST: mysql-db
-      MYSQL_DB_NAME: mydb
-      MYSQL_DATABASE: mydb
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_PASSWORD: pass
-      MYSQL_USER: user
-    services:
-      mysql-db:
-        image: mysql:8
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_HOST: ${{ env.MYSQL_HOST }}
-          MYSQL_DB_NAME: ${{ env.MYSQL_DB_NAME }}
-          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
-          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
-          MYSQL_USRE: ${{ env.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
-        volumes:
-          - ./db-init:/docker-entrypoint-initdb.d
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-    
     steps:
       - name: Checkout dépot
         uses: actions/checkout@v3
@@ -54,9 +31,21 @@ jobs:
           envkey_MYSQL_ROOT_PASSWORD: root
           envkey_MYSQL_PASSWORD: pass
           envkey_MYSQL_USER: user
+          envkey_MONGODB_HOST: mongo
+          envkey_MONGODB_NAME: mydbmongo
+          envkey_MONGODB_INITDB_ROOT_USERNAME: user
+          envkey_MONGODB_INITDB_ROOT_PASSWORD: pass
+          envkey_MONGODB_URL: mongodb://user:pass@mongo-db:27017/mydbmongo
+          envkey_DB_USERNAME: user
+          envkey_DB_PASSWORD: pass
 
-      - name: Rajouter le projet au PYTHONPATH
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE:$GITHUB_WORKSPACE/src:$PYTHONPATH" >> $GITHUB_ENV
+      - name: Composer le docker
+        run: |
+          docker build -t labo1-store-manager .
+          docker compose up -d
+
+      #- name: Rajouter le projet au PYTHONPATH
+      #  run: echo "PYTHONPATH=$GITHUB_WORKSPACE:$GITHUB_WORKSPACE/src:$PYTHONPATH" >> $GITHUB_ENV
 
       - name: Tester le python
-        run: pytest src/tests
+        run: docker compose exec store_manager_app pytest
