@@ -36,29 +36,29 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
-      #- name: Creer fichier .env
-      #  run: |
-      #    echo "MYSQL_HOST=mysql-db" >> .env
-      #    echo "MYSQL_DB_NAME=mydb" >> .env
-      #    echo "MYSQL_DATABASE=mydb" >> .env
-      #    echo "MYSQL_ROOT_PASSWORD=root" >> .env
-      #    echo "MYSQL_PASSWORD=pass" >> .env
-      #    echo "MYSQL_USER=user" >> .env
-      #    echo "MONGODB_HOST=mongo" >> .env
-      #    echo "MONGODB_NAME=mydbmongo" >> .env
-      #    echo "MONGODB_INITDB_ROOT_USERNAME=user" >> .env
-      #    echo "MONGODB_INITDB_ROOT_PASSWORD=pass" >> .env
-      #    echo "MONGODB_URL=mongodb://user:pass@mongo-db:27017/mydbmongo" >> .env
-      #    echo "DB_USERNAME=user" >> .env
-      #    echo "DB_PASSWORD=pass" >> .env
+      - name: Creer fichier .env
+        run: |
+          echo "MYSQL_HOST=mysql-db" >> .env
+          echo "MYSQL_DB_NAME=mydb" >> .env
+          echo "MYSQL_DATABASE=mydb" >> .env
+          echo "MYSQL_ROOT_PASSWORD=root" >> .env
+          echo "MYSQL_PASSWORD=pass" >> .env
+          echo "MYSQL_USER=user" >> .env
+          echo "MONGODB_HOST=mongo" >> .env
+          echo "MONGODB_NAME=mydbmongo" >> .env
+          echo "MONGODB_INITDB_ROOT_USERNAME=user" >> .env
+          echo "MONGODB_INITDB_ROOT_PASSWORD=pass" >> .env
+          echo "MONGODB_URL=mongodb://user:pass@mongo-db:27017/mydbmongo" >> .env
+          echo "DB_USERNAME=user" >> .env
+          echo "DB_PASSWORD=pass" >> .env
 
       - name: Rajouter le projet au PYTHONPATH
         run: echo "PYTHONPATH=$GITHUB_WORKSPACE:$GITHUB_WORKSPACE/src:$PYTHONPATH" >> $GITHUB_ENV
 
       - name: Tester le python
         run: pytest src/tests
-        env:
-          MYSQL_HOST: mysql-db
-          MYSQL_DB_NAME: mydb
-          DB_USERNAME: user
-          DB_PASSWORD: pass
+        #env:
+        #  MYSQL_HOST: mysql-db
+        #  MYSQL_DB_NAME: mydb
+        #  DB_USERNAME: user
+        #  DB_PASSWORD: pass
