@@ -35,26 +35,15 @@ jobs:
           echo "MONGODB_INITDB_ROOT_PASSWORD=pass" >> .env
           echo "MONGODB_URL=mongodb://user:pass@mongo-db:27017/mydbmongo" >> .env
 
-      # - name: Créer fichier .env
-      #   uses: SpicyPizza/create-envfile@v1
-      #   with:
-      #     file_name: .env
-      #     envkey_MYSQL_HOST: mysql-db
-      #     envkey_MYSQL_DB_NAME: mydb
-      #     envkey_MYSQL_DATABASE: mydb
-      #     envkey_MYSQL_ROOT_PASSWORD: root
-      #     envkey_MYSQL_PASSWORD: pass
-      #     envkey_MYSQL_USER: user
-      #     envkey_MONGODB_HOST: mongo
-      #     envkey_MONGODB_NAME: mydbmongo
-      #     envkey_MONGODB_INITDB_ROOT_USERNAME: user
-      #     envkey_MONGODB_INITDB_ROOT_PASSWORD: pass
-      #     envkey_MONGODB_URL: mongodb://user:pass@mongo-db:27017/mydbmongo
-
       - name: Composer le docker
         run: |
           docker build -t labo1-store-manager .
           docker compose up -d
+
+      - name: Vérifier que les bases de données sont parties
+        run: |
+          mysql -u root -proot mysql
+          SELECT @@port;
 
       - name: Tester le python
         #run: docker compose exec store_manager_app pytest
