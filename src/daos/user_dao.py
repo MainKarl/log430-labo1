@@ -21,6 +21,8 @@ class UserDAO:
             self.conn = mysql.connector.connect(host=db_host, user=db_user, password=db_pass, 
             database=db_name)
             self.cursor = self.conn.cursor()
+        except mysql.connector.Error as e:
+            print(f"Attente, la base de données a généré une erreur: ${str(e)}")
         except FileNotFoundError as e:
             print("Attention : Veuillez créer un fichier .env")
         except Exception as e:
