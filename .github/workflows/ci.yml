@@ -55,10 +55,11 @@ jobs:
         run: |
           docker build -t labo1-store-manager .
           docker compose up -d
-      
-      - name: sleep
-        run: sleep 15s
-
 
       - name: Tester le python
         run: docker compose exec store_manager_app pytest
+        env:
+          MYSQL_HOST: mysql
+          MYSQL_DB_NAME: mydb
+          MYSQL_USER: user
+          MYSQL_PASSWORD: pass
