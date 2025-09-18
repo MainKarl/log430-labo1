@@ -13,8 +13,9 @@ class UserDAO:
         try:
             env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 
-            print(os.path.abspath(env_path))
-            load_dotenv(dotenv_path=env_path)
+            #print(os.path.abspath(env_path))
+            #load_dotenv(dotenv_path=env_path)
+            load_dotenv()
             db_host = os.getenv("MYSQL_HOST")
             db_name = os.getenv("MYSQL_DB_NAME")
             db_user = os.getenv("DB_USERNAME")
