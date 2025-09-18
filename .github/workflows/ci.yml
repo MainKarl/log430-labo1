@@ -44,7 +44,8 @@ jobs:
         run: |
           ps -ef
           ss -ltpn
-          mysql -u root -proot --port=3307 mysql
+          hostnamectl
+          mysql -u root -proot --port=3307 --host=127.0.0.1 mysql
           SELECT @@port;
 
       - name: Tester le python
