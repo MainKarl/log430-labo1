@@ -6,12 +6,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    env:
-      MYSQL_HOST: "mysql"
-      MYSQL_DB_NAME: "mydb"
-      MYSQL_USER: "user"
-      MYSQL_PASSWORD: "pass"
-
     steps:
       - name: Checkout dépot
         uses: actions/checkout@v3
@@ -29,7 +23,7 @@ jobs:
 
       - name: Créer un fichier .env
         run: |
-          echo "MYSQL_HOST=mysql-db" >> .env
+          echo "MYSQL_HOST=mysql" >> .env
           echo "MYSQL_DB_NAME=mydb" >> .env
           echo "MYSQL_DATABASE=mydb" >> .env
           echo "MYSQL_ROOT_PASSWORD=root" >> .env
