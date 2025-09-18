@@ -33,11 +33,6 @@ jobs:
       - name: Checkout dépot
         uses: actions/checkout@v3
 
-      - name: Partir MySQL
-        run : |
-          sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE IF NOT EXISTS ${{ env.MYSQL_DATABASE }};' -u${{ env.MYSQL_USER }} -p${{ env.MYSQL_PASSWORD }}
-
       - name: Installer Python
         uses: actions/setup-python@v4
         with:
@@ -49,24 +44,6 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
-      #- name: Creer fichier .env
-      #  run: |
-      #    ls -l
-      #    touch .env
-      #    echo MYSQL_HOST=mysql-db >> .env
-      #    echo MYSQL_DB_NAME=mydb >> .env
-      #    echo MYSQL_DATABASE=mydb >> .env
-      #    echo MYSQL_ROOT_PASSWORD=root >> .env
-      #    echo MYSQL_PASSWORD=pass >> .env
-      #    echo MYSQL_USER=user >> .env
-      #    echo MONGODB_HOST=mongo >> .env
-      #    echo MONGODB_NAME=mydbmongo >> .env
-      #    echo MONGODB_INITDB_ROOT_USERNAME=user >> .env
-      #    echo MONGODB_INITDB_ROOT_PASSWORD=pass >> .env
-      #    echo MONGODB_URL=mongodb://user:pass@mongo-db:27017/mydbmongo >> .env
-      #    echo DB_USERNAME=user >> .env
-      #    echo DB_PASSWORD=pass >> .env
-      
       - name: Créer fichier .env
         uses: SpicyPizza/create-envfile@v1
         with:
