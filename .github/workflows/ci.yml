@@ -6,6 +6,12 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    env:
+      MYSQL_HOST: mysql
+      MYSQL_DB_NAME: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+
     steps:
       - name: Checkout dépot
         uses: actions/checkout@v3
@@ -58,8 +64,3 @@ jobs:
 
       - name: Tester le python
         run: docker compose exec store_manager_app pytest
-        env:
-          MYSQL_HOST: mysql
-          MYSQL_DB_NAME: mydb
-          MYSQL_USER: user
-          MYSQL_PASSWORD: pass
