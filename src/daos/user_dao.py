@@ -12,8 +12,7 @@ from models.user import User
 class UserDAO:
     def __init__(self):
         try:
-            current_file_path = Path(__file__)
-            env_path = os.path.join(current_file_path.parent.parent.parent, '.env')
+            env_path = os.path.join(Path(__file__).parent.parent.parent, '.env')
             load_dotenv(dotenv_path=env_path)
             db_host = os.getenv("MYSQL_HOST")
             db_name = os.getenv("MYSQL_DB_NAME")
@@ -52,24 +51,22 @@ class UserDAO:
     def update(self, user):
         """ Update given user in MySQL """
         self.cursor.execute(
-            "UPDATE user SET name = %s, email = %s WHERE id = %i",
+            "UPDATE users SET name = %s, email = %s WHERE id = %s",
             (user.name, user.email, user.id)
         )
         self.conn.commit()
 
     def delete(self, user_id):
         """ Delete user from MySQL with given user ID """
-        self.cursor.execute(
-            "DELETE FROM user WHERE id = %i",
-            (user_id)
-        )
+        query = "DELETE FROM users WHERE id = %s"
+        params = (user_id,)
+        print("DELETE FROM users WHERE id = "+str(user_id))
+        self.cursor.execute(query,params)
         self.conn.commit()
 
     def delete_all(self): #optional
         """ Empty users table in MySQL """
-        self.cursor.execute(
-            "DELETE FROM user"
-        )
+        self.cursor.execute("DELETE FROM users")
         self.conn.commit()
         
     def close(self):

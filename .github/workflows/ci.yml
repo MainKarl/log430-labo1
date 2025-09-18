@@ -20,35 +20,41 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
-      
-      - name: Rajouter le projet au PYTHONPATH
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE:$GITHUB_WORKSPACE/src:$PYTHONPATH" >> $GITHUB_ENV
 
-      - name: Créer fichier .env
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          file_name: .env
-          envkey_MYSQL_HOST: mysql-db
-          envkey_MYSQL_DB_NAME: mydb
-          envkey_MYSQL_DATABASE: mydb
-          envkey_MYSQL_ROOT_PASSWORD: root
-          envkey_MYSQL_PASSWORD: pass
-          envkey_MYSQL_USER: user
-          envkey_MONGODB_HOST: mongo
-          envkey_MONGODB_NAME: mydbmongo
-          envkey_MONGODB_INITDB_ROOT_USERNAME: user
-          envkey_MONGODB_INITDB_ROOT_PASSWORD: pass
-          envkey_MONGODB_URL: mongodb://user:pass@mongo-db:27017/mydbmongo
-          envkey_DB_USERNAME: user
-          envkey_DB_PASSWORD: pass
+      - name: Créer un fichier .env
+        run: |
+          echo "MYSQL_HOST=mysql-db" >> .env
+          echo "MYSQL_DB_NAME=mydb" >> .env
+          echo "MYSQL_DATABASE=mydb" >> .env
+          echo "MYSQL_ROOT_PASSWORD=root" >> .env
+          echo "MYSQL_PASSWORD=pass" >> .env
+          echo "MYSQL_USER=user" >> .env
+          echo "MONGODB_HOST=mongo" >> .env
+          echo "MONGODB_NAME=mydbmongo" >> .env
+          echo "MONGODB_INITDB_ROOT_USERNAME=user" >> .env
+          echo "MONGODB_INITDB_ROOT_PASSWORD=pass" >> .env
+          echo "MONGODB_URL=mongodb://user:pass@mongo-db:27017/mydbmongo" >> .env
+
+      # - name: Créer fichier .env
+      #   uses: SpicyPizza/create-envfile@v1
+      #   with:
+      #     file_name: .env
+      #     envkey_MYSQL_HOST: mysql-db
+      #     envkey_MYSQL_DB_NAME: mydb
+      #     envkey_MYSQL_DATABASE: mydb
+      #     envkey_MYSQL_ROOT_PASSWORD: root
+      #     envkey_MYSQL_PASSWORD: pass
+      #     envkey_MYSQL_USER: user
+      #     envkey_MONGODB_HOST: mongo
+      #     envkey_MONGODB_NAME: mydbmongo
+      #     envkey_MONGODB_INITDB_ROOT_USERNAME: user
+      #     envkey_MONGODB_INITDB_ROOT_PASSWORD: pass
+      #     envkey_MONGODB_URL: mongodb://user:pass@mongo-db:27017/mydbmongo
 
       - name: Composer le docker
         run: |
           docker build -t labo1-store-manager .
           docker compose up -d
-
-      - name: Rajouter le projet au PYTHONPATH du docker
-        run: docker compose exec store_manager_app echo "PYTHONPATH=$GITHUB_WORKSPACE:$GITHUB_WORKSPACE/src:$PYTHONPATH" >> $GITHUB_ENV
 
       - name: Tester le python
         run: docker compose exec store_manager_app pytest

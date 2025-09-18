@@ -34,5 +34,5 @@ def test_user_delete():
     dao.delete(assigned_id)
 
     user_list = dao.select_all()
-    emails = [u.email for u in user_list]
-    assert user.email not in emails
+    ids = [u.id for u in user_list]
+    assert assigned_id not in ids
