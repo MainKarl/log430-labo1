@@ -29,7 +29,7 @@ class UserDAO:
                 database=db_name,
                 user=db_user,
                 password=db_pass, 
-                port=3307
+                port=3306
             )
             self.cursor = self.conn.cursor()
         except mysql.connector.Error as e:
