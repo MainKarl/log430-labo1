@@ -70,8 +70,8 @@ jobs:
 
       - name: Tester le python
         run: pytest src/tests
-        #env:
-        #  MYSQL_HOST: mysql-db
-        #  MYSQL_DB_NAME: mydb
-        #  DB_USERNAME: user
-        #  DB_PASSWORD: pass
+        env:
+          MYSQL_HOST: mysql-db
+          MYSQL_DB_NAME: mydb
+          DB_USERNAME: user
+          DB_PASSWORD: pass
