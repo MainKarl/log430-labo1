@@ -13,11 +13,12 @@ class UserDAO:
     def __init__(self):
         try:
             env_path = os.path.join(Path(__file__).parent.parent.parent, '.env')
+            print(env_path)
             load_dotenv(dotenv_path=env_path)
-            db_host = os.getenv("MYSQL_HOST")
-            db_name = os.getenv("MYSQL_DB_NAME")
-            db_user = os.getenv("MYSQL_USER")
-            db_pass = os.getenv("MYSQL_PASSWORD")
+            db_host = "mysql" #os.getenv("MYSQL_HOST")
+            db_name = "mydb" #os.getenv("MYSQL_DB_NAME")
+            db_user = "user" #os.getenv("MYSQL_USER")
+            db_pass = "pass" #os.getenv("MYSQL_PASSWORD")
             self.conn = mysql.connector.connect(
                 host=db_host,
                 database=db_name,
