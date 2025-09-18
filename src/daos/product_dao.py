@@ -23,7 +23,7 @@ class ProductDAO:
                 database=db_name,
                 user=db_user,
                 password=db_pass, 
-                port=3306
+                port=3307
             )
             self.cursor = self.conn.cursor()
         except FileNotFoundError as e:
