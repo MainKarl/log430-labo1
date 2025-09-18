@@ -1,11 +1,23 @@
-name: example_CI
+name: CI
 
 on: [push, pull_request]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_HOST: mysql-db
+          MYSQL_DB_NAME: mydb
+          MYSQL_DATABASE: mydb
+          MYSQL_PASSWORD: pass
+          MYSQL_USER: user
+        ports:
+          - 3306:3306
+    
     steps:
       - name: Checkout dépot
         uses: actions/checkout@v3
@@ -14,17 +26,29 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-
-      - name: Creer fichier .env
-        run: |
-          echo "DB_HOST=localhost" >> .env
-          echo "DB_NAME=mydb" >> .env
-          echo "DB_USERNAME=user" >> .env
-          echo "DB_PASSWORD=pass" >> .env
-
+      
       - name: Installer les dépendances
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
 
+      - name: Creer fichier .env
+        run: |
+          CD log430/log430-labo1/
+          echo "MYSQL_HOST=mysql" >> .env
+          echo "MYSQL_DB_NAME=mydb" >> .env
+          MYSQL_DATABASE=mydb
+          echo "MYSQL_ROOT_PASSWORD=root" >> .env
+          echo "MYSQL_PASSWORD=pass" >> .env
+          echo "MYSQL_USER=user" >> .env
+          echo "MONGODB_HOST=mongo" >> .env
+          echo "MONGODB_NAME=mydbmongo" >> .env
+          echo "MONGODB_INITDB_ROOT_USERNAME=user" >> .env
+          echo "MONGODB_INITDB_ROOT_PASSWORD=pass" >> .env
+          echo "MONGODB_URL=mongodb://user:pass@mongodb:27017/mydbmongo" >> .env
+          echo "DB_USERNAME=user" >> .env
+          echo "DB_PASSWORD=pass" >> .env
+      
+      - name: Tester le python
+        run: pytest
