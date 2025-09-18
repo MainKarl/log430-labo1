@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      MYSQL_HOST: mysql
-      MYSQL_DB_NAME: mydb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
+      MYSQL_HOST: "mysql"
+      MYSQL_DB_NAME: "mydb"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "pass"
 
     steps:
       - name: Checkout dépot
