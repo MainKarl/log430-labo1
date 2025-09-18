@@ -58,7 +58,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           file_name: .env
-          directory: $GITHUB_WORKSPACE
+          directory: .
           envkey_MYSQL_HOST: mysql-db
           envkey_MYSQL_DB_NAME: mydb
           envkey_MYSQL_DATABASE: mydb
