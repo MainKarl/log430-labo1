@@ -20,6 +20,10 @@ class UserDAO:
             db_name = os.getenv("MYSQL_DB_NAME")
             db_user = os.getenv("MYSQL_USER")
             db_pass = os.getenv("MYSQL_PASSWORD")
+            print("HOST: "+db_host)
+            print("NAME: "+db_name)
+            print("USER: "+db_user)
+            print("PASSWORD: "+db_pass)
             self.conn = mysql.connector.connect(
                 host=db_host,
                 database=db_name,
