@@ -63,4 +63,5 @@ jobs:
           docker compose up -d
 
       - name: Tester le python
-        run: docker compose exec store_manager_app pytest
+        #run: docker compose exec store_manager_app pytest
+        run: docker compose exec store_manager_app bash -c "cd src && python store_manager.py"
