@@ -43,7 +43,7 @@ jobs:
       #sudo ufw allow 3306/tcp
       - name: Vérifier que les bases de données sont parties
         run: |
-          ufw status
+          sudo ufw status
           ps -ef
           ss -ltpn
           hostnamectl
