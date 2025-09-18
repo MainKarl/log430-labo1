@@ -44,7 +44,7 @@ jobs:
         run: |
           ps -ef
           ss -ltpn
-          mysql -u root -proot mysql
+          mysql -u root -proot --port=3307 mysql
           SELECT @@port;
 
       - name: Tester le python
