@@ -42,6 +42,8 @@ jobs:
 
       - name: Vérifier que les bases de données sont parties
         run: |
+          ps -ef
+          ss -ltpn
           mysql -u root -proot mysql
           SELECT @@port;
 
