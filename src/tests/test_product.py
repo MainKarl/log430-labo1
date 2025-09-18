@@ -4,7 +4,8 @@ from models.product import Product
 dao = ProductDAO()
 
 def test_product_select():
-    assert "Le test n'est pas encore là" == 1
+    product_list = dao.select_all()
+    assert 
 
 def test_product_insert():
     assert "Le test n'est pas encore là" == 1

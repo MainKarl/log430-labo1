@@ -17,3 +17,8 @@ CREATE TABLE IF NOT EXISTS products (
     brand VARCHAR(20) NOT NULL,
     price DECIMAL(10, 2) NOT NULL
 );
+
+INSERT INTO products (name, brand, price) VALUES
+    ('Car1', 'Ferrari', 1000.0),
+    ('Car2', 'Ford', 2500.0),
+    ('Car3', 'Mercedes', 3000.0);

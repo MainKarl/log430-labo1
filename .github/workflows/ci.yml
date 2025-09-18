@@ -17,6 +17,8 @@ jobs:
           MYSQL_USER: user
         ports:
           - 3306:3306
+        volumes:
+          - ./db-init:/docker-entrypoint-initdb.d
     
     steps:
       - name: Checkout dépot
