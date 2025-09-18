@@ -32,7 +32,7 @@ jobs:
             cd log430-labo/log430-labo1 &&
             git pull &&  
             docker build -t labo1-store-manager .
-            docker compose up -d &&
+            docker compose up -d
 
       - name: Runner les tests
         uses: appleboy/ssh-action@v1.0.3
