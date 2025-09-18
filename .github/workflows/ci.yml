@@ -35,7 +35,7 @@ jobs:
 
       - name: Creer fichier .env
         run: |
-          CD log430/log430-labo1/
+          WORKDIR log430/log430-labo1/
           echo "MYSQL_HOST=mysql" >> .env
           echo "MYSQL_DB_NAME=mydb" >> .env
           MYSQL_DATABASE=mydb
