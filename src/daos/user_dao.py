@@ -20,7 +20,6 @@ class UserDAO:
             db_pass = os.getenv("DB_PASSWORD")    
             self.conn = mysql.connector.connect(host=db_host, user=db_user, password=db_pass, 
             database=db_name)
-            self.conn = mysql.connector.connect
             self.cursor = self.conn.cursor()
         except FileNotFoundError as e:
             print("Attention : Veuillez créer un fichier .env")

@@ -20,10 +20,15 @@ jobs:
           - 3306:3306
         volumes:
           - ./db-init:/docker-entrypoint-initdb.d
-    
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Checkout dépot
         uses: actions/checkout@v3
+
+      - name: Partir MySQL
+        run : |
+          sudo /etc/init.d/mysql start
+          mysql -e 
 
       - name: Installer Python
         uses: actions/setup-python@v4
@@ -69,9 +74,9 @@ jobs:
         run: echo "PYTHONPATH=$GITHUB_WORKSPACE:$GITHUB_WORKSPACE/src:$PYTHONPATH" >> $GITHUB_ENV
 
       - name: Tester le python
-        run: pytest src/tests
         env:
           MYSQL_HOST: mysql-db
           MYSQL_DB_NAME: mydb
           DB_USERNAME: user
           DB_PASSWORD: pass
+        run: pytest src/tests
