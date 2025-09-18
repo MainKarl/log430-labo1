@@ -2,3 +2,4 @@ load_dotenv
 pytest
 pymongo
 mysql-connector-python
+pathlib

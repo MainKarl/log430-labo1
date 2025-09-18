@@ -13,7 +13,7 @@ services:
       - labo430-labo1-network
 
   mysql:
-    container_name: mysql-db
+    container_name: mysql
     image: mysql:8
     restart: unless-stopped
     ports:

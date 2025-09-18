@@ -4,6 +4,7 @@ SPDX - License - Identifier: LGPL - 3.0 - or -later
 Auteurs : Gabriel C. Ullmann, Fabio Petrillo, 2025
 """
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 import mysql.connector
 from models.user import User
@@ -11,15 +12,20 @@ from models.user import User
 class UserDAO:
     def __init__(self):
         try:
-            env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
-            if os.path.exists(env_path):
-                load_dotenv(dotenv_path=env_path)
+            current_file_path = Path(__file__)
+            env_path = os.path.join(current_file_path.parent.parent.parent, '.env')
+            load_dotenv(dotenv_path=env_path)
             db_host = os.getenv("MYSQL_HOST")
             db_name = os.getenv("MYSQL_DB_NAME")
-            db_user = os.getenv("DB_USERNAME")
-            db_pass = os.getenv("DB_PASSWORD")    
-            self.conn = mysql.connector.connect(host=db_host, user=db_user, password=db_pass, 
-            database=db_name)
+            db_user = os.getenv("MYSQL_USER")
+            db_pass = os.getenv("MYSQL_PASSWORD")
+            self.conn = mysql.connector.connect(
+                host=db_host,
+                database=db_name,
+                user=db_user,
+                password=db_pass, 
+                port=3306
+            )
             self.cursor = self.conn.cursor()
         except mysql.connector.Error as e:
             print(f"Attente, la base de données a généré une erreur: ${str(e)}")
