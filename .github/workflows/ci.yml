@@ -18,6 +18,13 @@ jobs:
         image: mysql:8
         ports:
           - 3306:3306
+        env:
+          MYSQL_HOST: ${{ env.MYSQL_HOST }}
+          MYSQL_DB_NAME: ${{ env.MYSQL_DB_NAME }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_USRE: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
         volumes:
           - ./db-init:/docker-entrypoint-initdb.d
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
