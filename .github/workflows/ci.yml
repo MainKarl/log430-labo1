@@ -35,6 +35,9 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
+      - name: Installer le projet
+        run: pip install -e .
+
       - name: Creer fichier .env
         run: |
           echo "MYSQL_HOST=mysql" >> .env
