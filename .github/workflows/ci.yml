@@ -52,4 +52,4 @@ jobs:
           echo "DB_PASSWORD=pass" >> .env
 
       - name: Tester le python
-        run: pytest
+        run: pytest src/tests
