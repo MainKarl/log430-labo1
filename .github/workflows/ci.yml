@@ -39,12 +39,15 @@ jobs:
         run: |
           docker build -t labo1-store-manager .
           docker compose up -d
-
+          
+      #sudo ufw allow 3306/tcp
       - name: Vérifier que les bases de données sont parties
         run: |
+          ufw status
           ps -ef
           ss -ltpn
           hostnamectl
+          systemctl status mysql
           mysql -u root -proot --port=3307 --host=127.0.0.1 mysql
           SELECT @@port;
 
