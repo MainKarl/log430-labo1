@@ -13,6 +13,7 @@ jobs:
           MYSQL_HOST: mysql-db
           MYSQL_DB_NAME: mydb
           MYSQL_DATABASE: mydb
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_PASSWORD: pass
           MYSQL_USER: user
         ports:
@@ -37,9 +38,9 @@ jobs:
 
       - name: Creer fichier .env
         run: |
-          echo "MYSQL_HOST=mysql" >> .env
+          echo "MYSQL_HOST=mysql-db" >> .env
           echo "MYSQL_DB_NAME=mydb" >> .env
-          MYSQL_DATABASE=mydb
+          echo "MYSQL_DATABASE=mydb" >> .env
           echo "MYSQL_ROOT_PASSWORD=root" >> .env
           echo "MYSQL_PASSWORD=pass" >> .env
           echo "MYSQL_USER=user" >> .env
@@ -47,7 +48,7 @@ jobs:
           echo "MONGODB_NAME=mydbmongo" >> .env
           echo "MONGODB_INITDB_ROOT_USERNAME=user" >> .env
           echo "MONGODB_INITDB_ROOT_PASSWORD=pass" >> .env
-          echo "MONGODB_URL=mongodb://user:pass@mongodb:27017/mydbmongo" >> .env
+          echo "MONGODB_URL=mongodb://user:pass@mongo-db:27017/mydbmongo" >> .env
           echo "DB_USERNAME=user" >> .env
           echo "DB_PASSWORD=pass" >> .env
 
