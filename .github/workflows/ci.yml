@@ -46,5 +46,4 @@ jobs:
           debug: true
           script: |
             cd log430-labo/log430-labo1 &&
-            docker compose exec store_manager_app bash -c "cd src && python store_manager.py" &&
             docker compose exec store_manager_app pytest
