@@ -1,3 +1,4 @@
+import pytest
 from daos.product_dao import ProductDAO
 from models.product import Product
 

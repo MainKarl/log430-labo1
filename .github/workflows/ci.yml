@@ -34,6 +34,9 @@ jobs:
             docker build -t labo1-store-manager .
             docker compose up -d
 
+      - name: Attendre
+        run: sleep 15s
+
       - name: Runner les tests
         uses: appleboy/ssh-action@v1.0.3
         with:
