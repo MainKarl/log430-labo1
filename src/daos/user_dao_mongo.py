@@ -13,8 +13,8 @@ class UserDAOMongo:
             db_uri = os.getenv("MONGODB_URL")
             client = MongoClient(db_uri)
 
-            database = client.get_database(db_name)
-            self.users = database.get_collection("users")
+            database = client[db_name]
+            self.users = database["users"]
 
         except FileNotFoundError as e:
             print("Attention: Veuillez créer un fichier .env")
@@ -22,24 +22,20 @@ class UserDAOMongo:
             print("Erreur: "+str(e))
 
     def select_all(self):
-        return [User(*row) for row in self.users]
+        return [User(str(row["_id"]), row["name"], row["email"]) for row in self.users.find()]
 
     def insert(self, user):
         insert_operation = { "name": user.name, "email": user.email }
-        self.users.insert_one(insert_operation)
-    
+        result = self.users.insert_one(insert_operation)
+        return result.inserted_id
+
     def update(self, user):
-        query_filter = { "id", user.id }
-        update_operation = {
-            "$set" : {
-                { "name" : user.name },
-                { "email" : user.email }
-            }
-        }
+        query_filter = { "_id": user.id }
+        update_operation = { "$set" : {"name" : user.name, "email" : user.email }}
         self.users.update_one(query_filter, update_operation)
     
     def delete(self, user_id):
-        query_filter = { "id", user_id }
+        query_filter = { "_id": user_id }
         self.users.delete_one(query_filter)
 
     def delete_all(self):
