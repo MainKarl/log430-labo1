@@ -6,7 +6,7 @@ class ProductView:
     def show_options():
         controller = ProductController()
         while True:
-            print("\n1. Montrer la liste des produits\n2. Ajouter un produit\n3. Quitter l'appli")
+            print("\n1. Montrer la liste des produits\n2. Ajouter un produit\n3. Supprimer un produit\n4. Quitter l'appli")
             choice = input("Choississez une option")
 
             if choice == "1":
@@ -17,6 +17,9 @@ class ProductView:
                 product = Product(name, brand, price)
                 controller.create_product(product)
             elif choice == "3":
+                id = input("L'id du produit: ").strip()
+                controller.delete_product(product)
+            elif choice == "4":
                 controller.shutdown()
                 break
             else:

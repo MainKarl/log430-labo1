@@ -9,6 +9,9 @@ class ProductController:
     
     def create_product(self, product):
         self.dao.insert(product)
+
+    def delete_product(self, product_id):
+        self.dao.delete(product_id)
     
     def shutdown(self):
         self.dao.close()
