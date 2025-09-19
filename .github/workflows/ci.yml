@@ -35,7 +35,7 @@ jobs:
             docker compose up -d
 
       - name: Attendre
-        run: sleep 15s
+        run: sleep 30s
 
       - name: Runner les tests
         uses: appleboy/ssh-action@v1.0.3

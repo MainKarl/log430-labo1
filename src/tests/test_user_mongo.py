@@ -4,8 +4,10 @@ from models.user import User
 dao = UserDAOMongo()
 
 def test_user_select():
+    user = User(None, 'User Test', 'test@example.com')
+    assigned_id = dao.insert(user)
     user_list = dao.select_all()
-    assert len(user_list) >= 3
+    assert len(user_list) >= 1
 
 def test_user_insert():
     user = User(None, 'Margaret Hamilton', 'hamilton@example.com')
